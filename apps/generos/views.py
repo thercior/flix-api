@@ -5,7 +5,7 @@ from generos.models import Genero
 
 # Create your views here.
 @csrf_exempt
-def genero_view(request):
+def genero_create_list_view(request):
     if request.method == 'GET':
         generos = Genero.objects.all()
         data = [{'id': genero.id, 'nome': genero.nome} for genero in generos]
