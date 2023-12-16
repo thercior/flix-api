@@ -39,3 +39,10 @@ def genero_detalhes_view(request, pk):
             {'id': genero.id, 'nome': genero.nome},
             status=302
         )
+        
+    elif request.method == 'DELETE':
+        genero.delete()
+        return JsonResponse(
+            {'message': 'Gênero excluído com sucesso'},
+            status=204,
+        )
