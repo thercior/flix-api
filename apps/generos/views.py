@@ -1,5 +1,6 @@
 import json
 from django.http import JsonResponse
+from django.shortcuts import get_object_or_404
 from django.views.decorators.csrf import csrf_exempt
 from generos.models import Genero
 
@@ -18,4 +19,23 @@ def genero_create_list_view(request):
         return JsonResponse(
             {'id': novo_genero.id, 'nome': novo_genero.nome}, 
             status=201
+        )
+
+@csrf_exempt
+def genero_detalhes_view(request, pk):
+    
+    genero = get_object_or_404(Genero, pk=pk)
+    
+    if request.method == 'GET':
+        data = {'id': genero.id, 'nome': genero.nome}
+        return JsonResponse(data)
+    
+    elif request.method == 'PUT':        
+        data = json.loads(request.body.decode('utf-8'))
+        genero.nome = data['nome']
+        genero.save()
+        
+        return JsonResponse(
+            {'id': genero.id, 'nome': genero.nome},
+            status=302
         )
