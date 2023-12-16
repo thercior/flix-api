@@ -44,5 +44,5 @@ def genero_detalhes_view(request, pk):
         genero.delete()
         return JsonResponse(
             {'message': 'Gênero excluído com sucesso'},
-            status=204,
+            status=204
         )
