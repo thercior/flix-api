@@ -5,6 +5,7 @@ from django.views.decorators.csrf import csrf_exempt
 from generos.models import Genero
 from generos.serializers import GeneroSerializer
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
+from rest_framework import response, status
 
 # Create your views here.
 class GeneroCreateListView(ListCreateAPIView):
@@ -14,6 +15,12 @@ class GeneroCreateListView(ListCreateAPIView):
 class GeneroDetailsUpdateDeleteView(RetrieveUpdateDestroyAPIView):
     queryset = Genero.objects.all()
     serializer_class = GeneroSerializer
+    
+    def destroy(self, request, *args, **kwargs):
+        instance = self.get_object()
+        self.perform_destroy(instance)
+        success_message = "Gênero excluído com sucesso!"
+        return response.Response({"message": success_message})
 
 """@csrf_exempt
 def genero_create_list_view(request):
@@ -47,13 +54,13 @@ def genero_detalhes_view(request, pk):
         
         return JsonResponse(
             {'id': genero.id, 'nome': genero.nome},
-            status=302
+            status=200
         )
         
     elif request.method == 'DELETE':
         genero.delete()
         return JsonResponse(
             {'message': 'Gênero excluído com sucesso'},
-            status=204
+            # status=204
         )
 """
