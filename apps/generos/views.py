@@ -3,9 +3,19 @@ from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
 from django.views.decorators.csrf import csrf_exempt
 from generos.models import Genero
+from generos.serializers import GeneroSerializer
+from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
 
 # Create your views here.
-@csrf_exempt
+class GeneroCreateListView(ListCreateAPIView):
+    queryset = Genero.objects.all()
+    serializer_class = GeneroSerializer
+
+class GeneroDetailsUpdateDeleteView(RetrieveUpdateDestroyAPIView):
+    queryset = Genero.objects.all()
+    serializer_class = GeneroSerializer
+
+"""@csrf_exempt
 def genero_create_list_view(request):
     if request.method == 'GET':
         generos = Genero.objects.all()
@@ -46,3 +56,4 @@ def genero_detalhes_view(request, pk):
             {'message': 'Gênero excluído com sucesso'},
             status=204
         )
+"""
