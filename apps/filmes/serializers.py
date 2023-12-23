@@ -3,16 +3,17 @@ from rest_framework import serializers
 from filmes.models import Filme
 
 class FilmeSerializer(serializers.ModelSerializer):
+    avaliacao = serializers.SerializerMethodField(read_only=True)
     
     class Meta:
         model = Filme
         fields = '__all__'
     
-    # def get_rate(self, obj):
-    #     average_rate = obj.reviews.aggregate(Avg('stars'))['stars__avg']
+    def get_avaliacao(self, obj):
+        average_avaliacao = obj.reviews.aggregate(Avg('stars'))['stars__avg']
         
-    #     if average_rate:
-    #         return round(average_rate, 1)
+        if average_avaliacao:
+            return round(average_avaliacao, 1)
     
     def validate_resumo(self, value):
         if len(value) > 200:
