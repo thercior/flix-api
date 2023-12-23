@@ -7,6 +7,9 @@ NACIONALIDADE_CHOICES = (
     ('BRA', 'Brasil'),
     ('ING', 'Inglaterra'),
     ('ARG', 'Argentina'),
+    ('GER', 'Alemanha'),
+    ('AUS', 'Austrália'),
+    ('HOL', 'Holanda')
 )
 
 class Ator(models.Model):
