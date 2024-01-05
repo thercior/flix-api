@@ -7,4 +7,5 @@ urlpatterns = [
     path('api/v1/', include('apps.atores.urls', namespace='Atores')),
     path('api/v1/', include('apps.filmes.urls', namespace='Filmes')),
     path('api/v1/', include('apps.reviews.urls', namespace='Reviews')),
+    path('api/v1/', include('apps.authentication.urls', namespace='Authentication')),
 ]
