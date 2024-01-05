@@ -6,13 +6,16 @@ from generos.models import Genero
 from generos.serializers import GeneroSerializer
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
 from rest_framework import response, status
+from rest_framework.permissions import IsAuthenticated
 
 # Create your views here.
 class GeneroCreateListView(ListCreateAPIView):
+    permission_classes = (IsAuthenticated,)
     queryset = Genero.objects.all()
     serializer_class = GeneroSerializer
 
 class GeneroDetailsUpdateDeleteView(RetrieveUpdateDestroyAPIView):
+    permission_classes = (IsAuthenticated,)
     queryset = Genero.objects.all()
     serializer_class = GeneroSerializer
     

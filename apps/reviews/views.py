@@ -1,14 +1,17 @@
 from rest_framework import response
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
+from rest_framework.permissions import IsAuthenticated
 from reviews.models import Review
 from reviews.serializers import ReviewSerializer
 
 # Create your views here.
 class ReviewCreateListView(ListCreateAPIView):
+    permission_classes = (IsAuthenticated,)
     queryset = Review.objects.all()
     serializer_class = ReviewSerializer
     
 class ReviewDetailUpdateDeleteView(RetrieveUpdateDestroyAPIView):
+    permission_classes = (IsAuthenticated,)
     queryset = Review.objects.all()
     serializer_class = ReviewSerializer
 
