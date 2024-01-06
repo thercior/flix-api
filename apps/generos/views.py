@@ -16,7 +16,7 @@ class GeneroCreateListView(ListCreateAPIView):
     serializer_class = GeneroSerializer
 
 class GeneroDetailsUpdateDeleteView(RetrieveUpdateDestroyAPIView):
-    permission_classes = (IsAuthenticated,)
+    permission_classes = (IsAuthenticated, GeneroPermissions,)
     queryset = Genero.objects.all()
     serializer_class = GeneroSerializer
     
