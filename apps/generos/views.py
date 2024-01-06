@@ -4,13 +4,14 @@ from django.shortcuts import get_object_or_404
 from django.views.decorators.csrf import csrf_exempt
 from generos.models import Genero
 from generos.serializers import GeneroSerializer
+from generos.permissions import GeneroPermissions
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
 from rest_framework import response, status
 from rest_framework.permissions import IsAuthenticated
 
 # Create your views here.
 class GeneroCreateListView(ListCreateAPIView):
-    permission_classes = (IsAuthenticated,)
+    permission_classes = (IsAuthenticated, GeneroPermissions,)
     queryset = Genero.objects.all()
     serializer_class = GeneroSerializer
 
