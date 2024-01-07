@@ -9,4 +9,10 @@ class GeneroPermissions(permissions.BasePermission):
         if request.method == 'POST':
             return request.user.has_perm('generos.add_genero')
         
+        if request.method in ['PATCH', 'PUT']:
+            return request.user.has_perm('generos.change_genero')
+        
+        if request.method == 'DELETE':
+            return request.user.has_perm('generos.delete_genero')
+        
         return False
