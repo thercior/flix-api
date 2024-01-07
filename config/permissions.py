@@ -10,7 +10,7 @@ class GlobalPermissions(permissions.BasePermission):
         if not model_permission_codename:
             return False
         
-        return request.user.has_permission(model_permission_codename)
+        return request.user.has_perm(model_permission_codename)
     
     def __get__model__permission_codename(self, method, view):
         try:
