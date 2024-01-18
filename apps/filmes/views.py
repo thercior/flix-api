@@ -1,10 +1,10 @@
 from django.db.models import Avg, Count
-from rest_framework import status, response
+from rest_framework import status, response, views
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
 from rest_framework.permissions import IsAuthenticated
-from rest_framework.views import APIView
+# from rest_framework.views import APIView
 from config.permissions import GlobalPermissions
-from filmes.serializers import FilmeSerializer, FilmeStaticsSerializer
+from filmes.serializers import FilmeSerializer, FilmeStatisticsSerializer
 from filmes.models import Filme
 from reviews.models import Review
 
@@ -20,11 +20,19 @@ class FilmeDetailUpdateDeleteView(RetrieveUpdateDestroyAPIView):
     serializer_class = FilmeSerializer
 
 # View para retorno de dados estatĩsticos do meu endpoint
-class FilmeStaticsView(APIView):
+class FilmeStatisticsView(views.APIView):
     permission_classes = (IsAuthenticated, GlobalPermissions,)
     queryset = Filme.objects.all()
     
-    def get(self, requets):
+    def get(self,request):
+        return response.Response(
+            data={'message': 'Funcionou perfeitamente!'},
+            # status=status.HTTP_200_OK
+        )
+    
+    """
+    
+    def get(self, request):
         # Busca dos dados
         total_filmes = self.queryset.count()
         filmes_por_genero = self.queryset.value('genero__nome').annotate(count=Count('id'))
@@ -40,11 +48,15 @@ class FilmeStaticsView(APIView):
         }
         
         # Envia para o serializer para serializar o conjunto de dados
-        serializer = FilmeStaticsSerializer(data=data)
+        serializer = FilmeStatisticsSerializer(data=data)
         serializer.is_valid(raise_exception=True)
         
         return response.Response(
             # data=serializer.data,
-            data=data,
+            data={
+                'message': 'Funcionou!'
+            },
             status=status.HTTP_200_OK,
         )
+
+    """
