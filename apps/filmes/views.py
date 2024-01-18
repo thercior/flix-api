@@ -24,18 +24,10 @@ class FilmeStatisticsView(views.APIView):
     permission_classes = (IsAuthenticated, GlobalPermissions,)
     queryset = Filme.objects.all()
     
-    def get(self,request):
-        return response.Response(
-            data={'message': 'Funcionou perfeitamente!'},
-            # status=status.HTTP_200_OK
-        )
-    
-    """
-    
     def get(self, request):
         # Busca dos dados
         total_filmes = self.queryset.count()
-        filmes_por_genero = self.queryset.value('genero__nome').annotate(count=Count('id'))
+        filmes_por_genero = self.queryset.values('genero__nome').annotate(count=Count('id'))
         total_reviews = Review.objects.count()
         media_avaliacoes = Review.objects.aggregate(avg_stars=Avg('stars'))['avg_stars']
         
@@ -52,11 +44,8 @@ class FilmeStatisticsView(views.APIView):
         serializer.is_valid(raise_exception=True)
         
         return response.Response(
-            # data=serializer.data,
-            data={
-                'message': 'Funcionou!'
-            },
+            # data=data, # já vem em formato dicionário (json, serializado)
+            data=serializer.validated_data, # retorna os dados que foram serializados
             status=status.HTTP_200_OK,
         )
 
-    """
