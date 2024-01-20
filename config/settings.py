@@ -105,7 +105,7 @@ DATABASES = {
     
     'producao': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'flix-api',
+        'NAME': 'flix_api',
         'USER': User_db,
         'PASSWORD': Password_db,
         'HOST': 'localhost',
