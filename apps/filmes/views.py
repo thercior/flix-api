@@ -1,5 +1,7 @@
 from django.db.models import Avg, Count
+from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import status, response, views
+from rest_framework.filters import SearchFilter, OrderingFilter
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
 from rest_framework.permissions import IsAuthenticated
 # from rest_framework.views import APIView
@@ -12,6 +14,19 @@ from reviews.models import Review
 class FilmeCreateListView(ListCreateAPIView):
     permission_classes = (IsAuthenticated, GlobalPermissions,)
     queryset = Filme.objects.all()
+
+    # Aplicação de friltros, buscas textuais e ordenação
+    filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
+    filterset_fields = ['titulo', 'genero']
+    search_fields = ['titulo', 'genero']
+    ordering = ['id']
+    ordering_fields = [
+        'id',
+        'titulo',
+        'genero',
+        'ano',
+        'atores'
+    ]
 
     def get_serializer_class(self):
 

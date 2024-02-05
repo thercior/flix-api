@@ -1,10 +1,12 @@
 import json
+from django_filters.rest_framework import DjangoFilterBackend
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
 from django.views.decorators.csrf import csrf_exempt
 from config.permissions import GlobalPermissions
 from generos.models import Genero
 from generos.serializers import GeneroSerializer
+from rest_framework.filters import SearchFilter, OrderingFilter
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
 from rest_framework import response, status
 from rest_framework.permissions import IsAuthenticated
@@ -14,6 +16,15 @@ class GeneroCreateListView(ListCreateAPIView):
     permission_classes = (IsAuthenticated, GlobalPermissions,)
     queryset = Genero.objects.all()
     serializer_class = GeneroSerializer
+
+    # Aplicação campos de filtragem
+    filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
+    filterset_fields = ['nome']
+    search_fields = ['nome']
+    ordering = ['nome']
+    ordering_fields = [
+        'nome',
+    ]
 
 class GeneroDetailsUpdateDeleteView(RetrieveUpdateDestroyAPIView):
     permission_classes = (IsAuthenticated, GlobalPermissions,)
