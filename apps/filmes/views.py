@@ -4,7 +4,7 @@ from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIV
 from rest_framework.permissions import IsAuthenticated
 # from rest_framework.views import APIView
 from config.permissions import GlobalPermissions
-from filmes.serializers import FilmeSerializer, FilmeStatisticsSerializer
+from filmes.serializers import FilmeListDetailSerializer, FilmeSerializer, FilmeStatisticsSerializer
 from filmes.models import Filme
 from reviews.models import Review
 
@@ -12,12 +12,23 @@ from reviews.models import Review
 class FilmeCreateListView(ListCreateAPIView):
     permission_classes = (IsAuthenticated, GlobalPermissions,)
     queryset = Filme.objects.all()
-    serializer_class = FilmeSerializer
-    
+
+    def get_serializer_class(self):
+
+        if self.request.method == 'GET':
+            return FilmeListDetailSerializer
+
+        return FilmeSerializer
+
 class FilmeDetailUpdateDeleteView(RetrieveUpdateDestroyAPIView):
     permission_classes = (IsAuthenticated, GlobalPermissions,)
     queryset = Filme.objects.all()
-    serializer_class = FilmeSerializer
+
+    def get_serializer_class(self):
+        if self.request.method == 'GET':
+            return FilmeListDetailSerializer
+
+        return FilmeSerializer
 
 # View para retorno de dados estatĩsticos do meu endpoint
 class FilmeStatisticsView(views.APIView):
