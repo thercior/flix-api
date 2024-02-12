@@ -11,6 +11,7 @@ NACIONALIDADE_CHOICES = (
     ('AUS', 'Austrália'),
     ('HOL', 'Holanda'),
     ('ESP', 'Espanha'),
+    ('FRA', 'França'),
 )
 
 class Ator(models.Model):
@@ -19,4 +20,4 @@ class Ator(models.Model):
     nacionalidade = models.CharField(max_length=100, choices=NACIONALIDADE_CHOICES, blank=True, null=True)
     
     def __str__(self):
-        return self.nome
+        return self.name
