@@ -25,12 +25,12 @@ class Command(BaseCommand):
                 nascimento = datetime.strptime(row['nascimento'], '%Y-%m-%d').date()
                 nacionalidade = row['nacionalidade']
 
-                self.stdout.write(self.style.NOTICE(nome)) # informa qual dado está sendo adicionado no momento
+                self.stdout.write(self.style.NOTICE(nome))  # informa qual dado está sendo adicionado no momento
 
                 Ator.objects.create(
                     nome=nome,
                     nascimento=nascimento,
-                    nacionalidade = nacionalidade,
+                    nacionalidade=nacionalidade,
                 )
 
         self.stdout.write(self.style.SUCCESS('Atores importados com sucesso!'))
