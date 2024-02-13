@@ -1,5 +1,5 @@
 from django.urls import path
-from filmes.views import *
+from filmes.views import FilmeCreateListView, FilmeDetailUpdateDeleteView, FilmeStatisticsView
 
 app_name = 'Filmes'
 

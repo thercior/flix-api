@@ -103,7 +103,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / './data/flix-api.sqlite3',
     },
-    
+
     'producao': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'flix_api',
@@ -175,5 +175,5 @@ REST_FRAMEWORK = {
 
 SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": timedelta(minutes=15),
-    "REFRESH_TOKEN_LIFETIME":timedelta(days=1),
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
 }
