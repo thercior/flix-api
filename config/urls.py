@@ -8,4 +8,5 @@ urlpatterns = [
     path('api/v1/', include('apps.filmes.urls', namespace='Filmes')),
     path('api/v1/', include('apps.reviews.urls', namespace='Reviews')),
     path('api/v1/', include('apps.authentication.urls', namespace='Authentication')),
+    path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
 ]

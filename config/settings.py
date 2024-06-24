@@ -23,6 +23,7 @@ environ.Env.read_env()
 Secret_key = env.str('SECRET_KEY')
 User_db = env.str('USER_DB')
 Password_db = env.str('PASSWORD_DB')
+Debug_production = env.bool('DEBUG_PRODUCTION')
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -39,9 +40,9 @@ sys.path.insert(0, os.path.join(PROJECT_ROOT, '../apps'))
 SECRET_KEY = Secret_key
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = Debug_production
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['3.90.0.66', '*']
 
 
 # Application definition
@@ -102,10 +103,10 @@ DATABASES = {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / './data/flix-api.sqlite3',
     },
-    
+
     'producao': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'flix-api',
+        'NAME': 'flix_api',
         'USER': User_db,
         'PASSWORD': Password_db,
         'HOST': 'localhost',
@@ -148,8 +149,13 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-STATIC_URL = '/static/'
+STATIC_URL = 'static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles/')
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+
+# Media Files (CSS, JavaScript, Images)
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
@@ -157,8 +163,8 @@ STATIC_URL = '/static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 REST_FRAMEWORK = {
-    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
-    'PAGE_SIZE': 10,
+    # 'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    # 'PAGE_SIZE': 10,
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework_simplejwt.authentication.JWTAuthentication',
         'rest_framework.authentication.SessionAuthentication',
@@ -168,6 +174,6 @@ REST_FRAMEWORK = {
 }
 
 SIMPLE_JWT = {
-    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=15),
-    "REFRESH_TOKEN_LIFETIME":timedelta(days=1),
+    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=120),
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
 }

@@ -7,7 +7,7 @@ from config.permissions import GlobalPermissions
 from reviews.models import Review
 from reviews.serializers import ReviewListDetailSerializer, ReviewSerializer
 
-# Create your views here.
+
 class ReviewCreateListView(ListCreateAPIView):
     permission_classes = (IsAuthenticated, GlobalPermissions,)
     queryset = Review.objects.all()
@@ -23,13 +23,14 @@ class ReviewCreateListView(ListCreateAPIView):
         'stars',
         'nacionalidade',
     ]
-    
+
     def get_serializer_class(self):
 
         if self.request.method == 'GET':
             return ReviewListDetailSerializer
 
         return ReviewSerializer
+
 
 class ReviewDetailUpdateDeleteView(RetrieveUpdateDestroyAPIView):
     permission_classes = (IsAuthenticated, GlobalPermissions,)

@@ -1,5 +1,6 @@
 from django.urls import path
-from atores.views import *
+from atores.views import AtorCreateListView, AtorDetailsUpdateDeleteView
+
 
 app_name = 'Atores'
 
