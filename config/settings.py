@@ -43,6 +43,8 @@ SECRET_KEY = Secret_key
 DEBUG = Debug_production
 
 ALLOWED_HOSTS = ['3.90.0.66', '*']
+CORS_ALLOWED_ORIGINS = ['http://localhost:3000']
+# CORS_ALLOW_ALL_ORIGINS = True
 
 
 # Application definition
@@ -62,9 +64,11 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework_simplejwt',
     'django_filters',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
