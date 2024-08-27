@@ -3,7 +3,7 @@ from atores.models import Ator
 
 
 class AtorSerializer(serializers.ModelSerializer):
-    nacionalidade = serializers.SerializerMethodField
+    nacionalidade = serializers.SerializerMethodField()
 
     class Meta:
         model = Ator
