@@ -9,6 +9,7 @@ class Filme(models.Model):
     ano = models.DateField(null=True, blank=True)
     atores = models.ManyToManyField(Ator, related_name='filme')
     resumo = models.TextField(null=True, blank=True)
+    capa = models.ImageField(null=True, blank=True, upload_to='capa_filmes/', default='./no-photo.jpg')
 
     def __str__(self):
         return self.titulo

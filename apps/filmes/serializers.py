@@ -6,6 +6,7 @@ from filmes.models import Filme
 
 
 class FilmeSerializer(serializers.ModelSerializer):
+    capa = serializers.ImageField(required=False)
 
     class Meta:
         model = Filme
@@ -21,10 +22,11 @@ class FilmeListDetailSerializer(serializers.ModelSerializer):
     atores = AtorSerializer(many=True)  # vários atores - uma lista de atores, por isso Many = True
     genero = GeneroSerializer()  # só vem um dado, logo o padrão Many = False
     avaliacao = serializers.SerializerMethodField(read_only=True)
+    capa = serializers.ImageField(read_only=True)
 
     class Meta:
         model = Filme
-        fields = ['id', 'titulo', 'genero', 'atores', 'ano', 'avaliacao', 'resumo']
+        fields = ['id', 'titulo', 'genero', 'atores', 'ano', 'avaliacao', 'resumo', 'capa']
 
     def get_avaliacao(self, obj):
         average_avaliacao = obj.reviews.aggregate(Avg('stars'))['stars__avg']
