@@ -20,6 +20,7 @@ RUN pip install --no-cache-dir -r requirements.txt && \
     pip install uwsgi
 
 COPY . /flix-api/
+COPY flix-api_uwsgi.ini /flix-api/flix-api_uwsgi.ini
 
 ENV DJANGO_SETTINGS_MODULE=config.settings \
     PYTHONBUFFERED=1 \
