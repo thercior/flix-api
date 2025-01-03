@@ -37,7 +37,7 @@ SECRET_KEY = env.str('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env.bool('DEBUG_PRODUCTION')
 
-ALLOWED_HOSTS = ['3.90.0.66', '*']
+ALLOWED_HOSTS = ['flixfilmes.thrsolutions.com.br', '*.thrsolutions.com.br', '195.35.43.250']
 CORS_ALLOWED_ORIGINS = ['http://localhost:3000']
 # CORS_ALLOW_ALL_ORIGINS = True
 
