@@ -17,14 +17,9 @@ import os
 import sys
 
 # Importação das variáveis de ambiente
+ENV = os.environ.get('ENV')
 env = environ.Env()
 environ.Env.read_env()
-
-Secret_key = env.str('SECRET_KEY')
-User_db = env.str('USER_DB')
-Password_db = env.str('PASSWORD_DB')
-Debug_production = env.bool('DEBUG_PRODUCTION')
-
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -37,10 +32,10 @@ sys.path.insert(0, os.path.join(PROJECT_ROOT, '../apps'))
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = Secret_key
+SECRET_KEY = env.str('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = Debug_production
+DEBUG = env.bool('DEBUG_PRODUCTION')
 
 ALLOWED_HOSTS = ['3.90.0.66', '*']
 CORS_ALLOWED_ORIGINS = ['http://localhost:3000']
@@ -110,11 +105,11 @@ DATABASES = {
 
     'producao': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'flix_api',
-        'USER': User_db,
-        'PASSWORD': Password_db,
-        'HOST': 'localhost',
-        'PORT': '5432'
+        'NAME': env.str('DB_NAME'),
+        'USER': env.str('DB_USER'),
+        'PASSWORD': env.str('DB_PASSWORD'),
+        'HOST': env.str('DB_HOST'),
+        'PORT': env.int('DB_PORT'),
     }
 }
 
@@ -148,7 +143,7 @@ TIME_ZONE = 'America/Sao_Paulo'
 
 USE_I18N = True
 
-USE_TZ = True
+USE_TZ = False
 
 
 # Static files (CSS, JavaScript, Images)

@@ -1,0 +1,45 @@
+services:
+  db_flix:
+    image: postgres:latest
+    container_name: flix_api_postgres_db
+    env_file: .env
+    environment:
+      - POSTGRES_DB=${DB_NAME}
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+    ports:
+      - "${DB_PORT}:5432"
+    volumes:
+      - flix_api_postgres_data:/var/lib/postgresql/data
+    networks:
+      - flix_api_network
+
+  flix_api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: flix-api
+    command: >
+      sh -c "./wait-for-it.sh db_flix:${DB_PORT} -- python manage.py makemigrations &&
+            python manage.py migrate &&
+            python manage.py collectstatic --noinput &&
+            uwsgi --http :8000 --module app.wsgi --chmod-socket=666"
+    ports:
+      - "8071:8000"
+    env_file: ./config/.env
+    volumes:
+      - static_volume:/flix_api/static
+      - media_volume:/flix_api/media
+    depends_on:
+      - db_flix
+    networks:
+    - flix_api_network
+
+networks:
+  flix_api_network:
+    driver: bridge
+
+volumes:
+  flix_api_postgres_data:
+  static_volume:
+  media_volume:
