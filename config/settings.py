@@ -38,8 +38,8 @@ SECRET_KEY = env.str('SECRET_KEY')
 DEBUG = env.bool('DEBUG_PRODUCTION')
 
 ALLOWED_HOSTS = ['flixfilmes.thrsolutions.com.br', '*.thrsolutions.com.br', '195.35.43.250']
-CORS_ALLOWED_ORIGINS = ['http://localhost:3000']
-# CORS_ALLOW_ALL_ORIGINS = True
+# CORS_ALLOWED_ORIGINS = ['http://localhost:5173', 'flixfilmes.thrsolutions.com.br', '*.thrsolutions.com.br']
+CORS_ALLOW_ALL_ORIGINS = True
 
 
 # Application definition
